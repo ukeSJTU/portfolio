@@ -70,6 +70,7 @@ export interface Config {
     users: User;
     media: Media;
     schools: School;
+    courses: Course;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -79,6 +80,7 @@ export interface Config {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     schools: SchoolsSelect<false> | SchoolsSelect<true>;
+    courses: CoursesSelect<false> | CoursesSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -171,6 +173,17 @@ export interface School {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "courses".
+ */
+export interface Course {
+  id: number;
+  name: string;
+  school: number | School;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -187,6 +200,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'schools';
         value: number | School;
+      } | null)
+    | ({
+        relationTo: 'courses';
+        value: number | Course;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -277,6 +294,16 @@ export interface MediaSelect<T extends boolean = true> {
 export interface SchoolsSelect<T extends boolean = true> {
   name?: T;
   logo?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "courses_select".
+ */
+export interface CoursesSelect<T extends boolean = true> {
+  name?: T;
+  school?: T;
   updatedAt?: T;
   createdAt?: T;
 }
