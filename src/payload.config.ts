@@ -9,6 +9,7 @@ import { fileURLToPath } from 'url'
 
 import { Courses } from './collections/Courses'
 import { Media } from './collections/Media'
+import { Notes } from './collections/Notes'
 import { Schools } from './collections/Schools'
 import { Tags } from './collections/Tags'
 import { Users } from './collections/Users'
@@ -23,7 +24,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, Schools, Courses, Tags],
+  collections: [Users, Media, Schools, Courses, Tags, Notes],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

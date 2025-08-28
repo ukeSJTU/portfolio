@@ -72,6 +72,7 @@ export interface Config {
     schools: School;
     courses: Course;
     tags: Tag;
+    notes: Note;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -83,6 +84,7 @@ export interface Config {
     schools: SchoolsSelect<false> | SchoolsSelect<true>;
     courses: CoursesSelect<false> | CoursesSelect<true>;
     tags: TagsSelect<false> | TagsSelect<true>;
+    notes: NotesSelect<false> | NotesSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -196,6 +198,62 @@ export interface Tag {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "notes".
+ */
+export interface Note {
+  id: number;
+  title: string;
+  status: 'draft' | 'published' | 'archived';
+  course: number | Course;
+  /**
+   * Featured notes will be displayed on the homepage
+   */
+  isFeatured?: boolean | null;
+  coverImage?: (number | null) | Media;
+  /**
+   * Brief summary for previews and SEO
+   */
+  excerpt?: string | null;
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  tags?: (number | Tag)[] | null;
+  viewCount?: number | null;
+  /**
+   * Leave empty to generate from title
+   */
+  slug?: string | null;
+  syncWithGithub?: boolean | null;
+  /**
+   * The URL to the file in your GitHub repository
+   */
+  githubUrl?: string | null;
+  lasySync?: string | null;
+  /**
+   * Title for search engine results and social media. Defaults to the note title if left empty.
+   */
+  metaTitle?: string | null;
+  /**
+   * Description for search engine results and social media. Defaults to the note excerpt if left empty.
+   */
+  metaDescription?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -220,6 +278,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'tags';
         value: number | Tag;
+      } | null)
+    | ({
+        relationTo: 'notes';
+        value: number | Note;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -329,6 +391,29 @@ export interface CoursesSelect<T extends boolean = true> {
  */
 export interface TagsSelect<T extends boolean = true> {
   name?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "notes_select".
+ */
+export interface NotesSelect<T extends boolean = true> {
+  title?: T;
+  status?: T;
+  course?: T;
+  isFeatured?: T;
+  coverImage?: T;
+  excerpt?: T;
+  content?: T;
+  tags?: T;
+  viewCount?: T;
+  slug?: T;
+  syncWithGithub?: T;
+  githubUrl?: T;
+  lasySync?: T;
+  metaTitle?: T;
+  metaDescription?: T;
   updatedAt?: T;
   createdAt?: T;
 }
