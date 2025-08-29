@@ -29,6 +29,9 @@ importers:
       '@payloadcms/ui':
         specifier: 3.53.0
         version: 3.53.0(@types/react@19.1.8)(monaco-editor@0.52.2)(next@15.4.4(@babel/core@7.28.3)(@playwright/test@1.54.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.77.4))(payload@3.53.0(graphql@16.11.0)(typescript@5.7.3))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(typescript@5.7.3)
+      commander:
+        specifier: ^14.0.0
+        version: 14.0.0
       cross-env:
         specifier: ^7.0.3
         version: 7.0.3
@@ -2693,6 +2696,10 @@ packages:
 
   colorette@2.0.20:
     resolution: {integrity: sha512-IfEDxwoWIjkeXL1eXcDiow4UbKjhLdq6/EuSVR9GMN7KVH3r9gQ83e73hsz1Nd1T3ijd5xv1wcWRYO+D6kCI2w==}
+
+  commander@14.0.0:
+    resolution: {integrity: sha512-2uM9rYjPvyq39NwLRqaiLtWHyDC1FvryJDa2ATTVims5YAS4PupsEQsDvP14FqhFr0P49CYDugi59xaxJlTXRA==}
+    engines: {node: '>=20'}
 
   commander@2.20.3:
     resolution: {integrity: sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==}
@@ -8353,6 +8360,8 @@ snapshots:
       color-string: 1.9.1
 
   colorette@2.0.20: {}
+
+  commander@14.0.0: {}
 
   commander@2.20.3: {}
 
