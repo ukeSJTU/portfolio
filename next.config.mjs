@@ -12,6 +12,9 @@ const nextConfig = {
 
     return webpackConfig
   },
+  experimental: {
+    optimizePackageImports: ['@chakra-ui/react'],
+  },
 }
 
 export default withPayload(nextConfig, { devBundleServerPackages: false })
