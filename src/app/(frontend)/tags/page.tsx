@@ -1,22 +1,15 @@
+import { TagsClient } from '@/components/tags-client'
 import config from '@payload-config'
 import { getPayload } from 'payload'
 
-const payload = await getPayload({ config })
-
 export default async function TagsPage() {
+  const payload = await getPayload({ config })
+
   const tags = await payload.find({
     collection: 'tags',
     limit: 0,
-    depth: 0,
+    depth: 1,
   })
-  return (
-    <div>
-      <h1>Tags</h1>
-      <ul>
-        {tags.docs.map((tag) => (
-          <li key={tag.id}>{tag.name}</li>
-        ))}
-      </ul>
-    </div>
-  )
+
+  return <TagsClient tags={tags.docs} />
 }
