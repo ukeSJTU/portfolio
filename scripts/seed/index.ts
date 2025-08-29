@@ -1,7 +1,6 @@
-import configPromise from '@/payload.config'
 import { faker } from '@faker-js/faker'
+import config from '@payload-config'
 import { Command } from 'commander'
-import dotenv from 'dotenv'
 import path from 'path'
 import { getPayload } from 'payload'
 
@@ -12,9 +11,9 @@ import { seedTags } from './tags'
 import { seedUsers } from './users'
 
 // Load environment variables
-dotenv.config({
-  path: path.resolve(process.cwd(), '.env'),
-})
+// dotenv.config({
+//   path: path.resolve(process.cwd(), '.env'),
+// })
 
 // Setup command line interface
 const program = new Command()
@@ -66,6 +65,15 @@ const validateOptions = (opts: typeof seedOptions) => {
 
 const seed = async (): Promise<void> => {
   try {
+    console.log('Environment check:')
+    console.log(`  NODE_ENV: ${process.env.NODE_ENV}`)
+    console.log(`  PAYLOAD_SECRET exists: ${!!process.env.PAYLOAD_SECRET}`)
+    console.log(`  PAYLOAD_SECRET length: ${process.env.PAYLOAD_SECRET?.length || 0}`)
+    console.log(`  Current working directory: ${process.cwd()}`)
+    console.log(`  .env file path: ${path.resolve(process.cwd(), '.env')}`)
+
+    console.log('Starting database seeding...')
+
     validateOptions(seedOptions)
 
     console.log('Starting database seeding...')
@@ -83,7 +91,7 @@ const seed = async (): Promise<void> => {
     console.log('Faker seed configured')
 
     const payload = await getPayload({
-      config: configPromise,
+      config: config,
     })
 
     console.log('Connected to Payload')
